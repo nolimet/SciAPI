@@ -1,0 +1,13 @@
+﻿
+item.cookprogressbar.name=연소 진행바
+item.fuelprogressbar.name=연료 소모바
+item.heatplate.name=열전도판
+item.box.name=빈 용암 상자
+item.boxlava.name=용암 상자
+tile.heatBlock.name=열전도블럭
+tile.heatCauldron.name=열 가마솥
+tile.heatFurnace.name=열 화로
+enchantment.explosiveCombustion=폭발적 연소
+enchantment.fineCooking=정교한 가열
+enchantment.heatProof=단열
+enchantment.thermalEfficiency=열효율

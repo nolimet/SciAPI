@@ -1,0 +1,12 @@
+item.cookprogressbar.name=Cook Progress Bar
+item.fuelprogressbar.name=Fuel Bar
+item.heatplate.name=Heat Plate
+item.box.name=Lava Box(Empty)
+item.boxlava.name=Lava Box(Filled)
+tile.heatBlock.name=Heat Block
+tile.heatCauldron.name=Heat Cauldron
+tile.heatFurnace.name=Heat Furnace
+enchantment.explosiveCombustion=Explosive Combustion
+enchantment.fineCooking=Fine Cooking
+enchantment.heatProof=Heat Insulation
+enchantment.thermalEfficiency=Thermal Effeciency

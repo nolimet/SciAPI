@@ -1,0 +1,14 @@
+{
+  "modinfoversion": 1,
+  "modlist": [{
+    "modid": "SciAPI",
+    "name": "SciAPI",
+    "description": "Scientific APIs for Minecraft!
+                    Includes Calculation & Unit API, Heat API.",
+    "version": "0.3.0",
+    "mcversion": "1.6.4",
+    "url": ["http://www.minecraftforge.net/forum/index.php/topic,17083.0.html", "http://cafe.naver.com/craftproducer/11453"],
+    "authors": "Abastro",
+    "credits": "CC BY-SA, Authored by Abastro",
+  }]
+}
