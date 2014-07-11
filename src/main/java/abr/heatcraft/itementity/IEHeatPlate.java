@@ -4,6 +4,7 @@ import java.util.Map;
 
 import abr.heatcraft.enchant.EnchantmentHeatProof;
 import abr.heatcraft.enchant.HEnchantments;
+import abr.heatcraft.multiitem.MultiFluidHeater;
 import abr.heatcraft.multiitem.MultiItemHeater;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,9 +38,13 @@ public class IEHeatPlate extends IEMultiComponent implements IHeatComponent {
 	
 	public void syncTemperature() {
 		for(MultiItem mitem : this.parmultiitem)
+		{
 			if(mitem instanceof MultiItemHeater){
 				Temp = ((MultiItemHeater)mitem).getTemperature();
 			}
+			else if(mitem instanceof MultiFluidHeater)
+				Temp = ((MultiFluidHeater) mitem).getTemperature();
+		}
 	}
 	
 	@Override
@@ -70,10 +75,15 @@ public class IEHeatPlate extends IEMultiComponent implements IHeatComponent {
 			worldObj.onInventoryChanged();
 		
 		for(MultiItem mitem : this.parmultiitem)
+		{
 			if(mitem instanceof MultiItemHeater){
 				((MultiItemHeater)mitem).onHeatTransfer(heat);
 				return;
 			}
+			else if(mitem instanceof MultiFluidHeater)
+				((MultiFluidHeater) mitem).onHeatTransfer(heat);
+				return;
+		}
 		
 		onRegularTransfer(heat);
 	}

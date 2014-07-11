@@ -3,6 +3,7 @@ package abr.heatcraft;
 import abr.heatcraft.block.*;
 import abr.heatcraft.core.McBagInvManager;
 import abr.heatcraft.enchant.HEnchantments;
+import abr.heatcraft.fluid.HFluids;
 import abr.heatcraft.gui.HeatGUIHandler;
 import abr.heatcraft.item.HItems;
 import abr.heatcraft.recipes.HRecipes;
@@ -13,7 +14,9 @@ import sciapi.api.registry.McInvItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -23,7 +26,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="heatcraft", name="HeatCraft", version="0.1.0", dependencies = "required-after:sciapi@[0.3.0,)")
+@Mod(modid="heatcraft", name="InvWorks", version="0.1.0", dependencies = "required-after:sciapi@[0.3.0,)")
 public class HeatCraft {
 	
 	@Instance(value = "heatcraft")
@@ -34,15 +37,18 @@ public class HeatCraft {
 
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-		Configuration cfg = new net.minecraftforge.common.config.Configuration(event.getSuggestedConfigurationFile());
+		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
 		
 		cfg.load();
 		
 		HEnchantments.Init(cfg);
+		HFluids.Init();
 		HBlocks.Init();
 		HItems.Init();
 		HRecipes.Init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HeatGUIHandler());
+		
+		MinecraftForge.EVENT_BUS.register(new HeatEventHandler());
 		
 		cfg.save();
 	}

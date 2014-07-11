@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import abr.heatcraft.enchant.HEnchantments;
+import abr.heatcraft.multiitem.MultiFluidHeater;
 import abr.heatcraft.multiitem.MultiItemHeater;
 import sciapi.api.abstraction.absutil.IInsBase;
 import sciapi.api.abstraction.pos.*;
@@ -27,9 +28,13 @@ public class IEFuelProgress extends IEMultiComponent implements IHeatComponent {
 	@Override
 	public double getTemperature() {
 		for(MultiItem mitem : this.parmultiitem)
+		{
 			if(mitem instanceof MultiItemHeater){
 				return ((MultiItemHeater)mitem).getTemperature();
 			}
+			else if(mitem instanceof MultiFluidHeater)
+				return ((MultiFluidHeater) mitem).getTemperature();
+		}
 		
 		return 0;
 	}
@@ -37,8 +42,12 @@ public class IEFuelProgress extends IEMultiComponent implements IHeatComponent {
 	@Override
 	public boolean isHeatTransferable(IDirection dir) {
 		for(MultiItem mitem : this.parmultiitem)
+		{
 			if(mitem instanceof MultiItemHeater)
 				return true;
+			else if(mitem instanceof MultiFluidHeater)
+				return true;
+		}
 		
 		return false;
 	}
@@ -56,17 +65,26 @@ public class IEFuelProgress extends IEMultiComponent implements IHeatComponent {
 	@Override
 	public void onHeatTransfer(double heat) {
 		for(MultiItem mitem : this.parmultiitem)
+		{
 			if(mitem instanceof MultiItemHeater){
 				((MultiItemHeater) mitem).onHeatTransfer(heat);
 				return;
 			}
+			else if(mitem instanceof MultiFluidHeater)
+				((MultiFluidHeater) mitem).onHeatTransfer(heat);
+				return;
+		}
 	}
 
 	
 	public int getProgress(int par1){
 		for(MultiItem mitem : this.parmultiitem)
+		{
 			if(mitem instanceof MultiItemHeater)
 				return ((MultiItemHeater) mitem).getBurnTimeRemainingScaled(par1);
+			else if(mitem instanceof MultiFluidHeater)
+				return ((MultiFluidHeater) mitem).getBurnTimeRemainingScaled(par1);
+		}
 		return 0;
 	}
 	

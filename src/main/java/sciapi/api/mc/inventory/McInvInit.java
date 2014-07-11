@@ -20,8 +20,10 @@ public class McInvInit {
 			FMLCommonHandler.instance().bus().register(new McPlayerHandlerInvInit());
 		}
 		else {
-			McManagerRegistry.registerManager(new McClientPlayerInvInit(),
-					Side.CLIENT);
+			McClientPlayerInvInit init = new McClientPlayerInvInit();
+			
+			McManagerRegistry.registerManager(init, Side.CLIENT);
+			FMLCommonHandler.instance().bus().register(init);
 		}
 	}
 }

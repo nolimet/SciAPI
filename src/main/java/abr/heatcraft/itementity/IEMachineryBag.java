@@ -22,6 +22,8 @@ public class IEMachineryBag extends ItemEntity implements IInventory {
 	private McBagInventory mcinv;
 	private int ysize;
 	
+	private NBTTagCompound savedinvs = null;
+	
 	public IEMachineryBag() { }
 	
 	public IEMachineryBag(int ysize)
@@ -33,7 +35,7 @@ public class IEMachineryBag extends ItemEntity implements IInventory {
     public void invalidate()
     {
         McBagInvManager.getInstance((worldObj.isRemote)? Side.CLIENT : Side.SERVER)
-        .removeInventory(worldObj.inv.getInvId() + ":" + pos.vec.getCoord(0) + "," + pos.vec.getCoord(1));
+        .removeInventory(worldObj.inv.getInvId() + ":" + pos.vec.getCoord(0).toInt() + "," + pos.vec.getCoord(1).toInt());
         
         super.invalidate();
     }
@@ -42,7 +44,10 @@ public class IEMachineryBag extends ItemEntity implements IInventory {
     public void validate()
     {
         mcinv = McBagInvManager.getInstance((worldObj.isRemote)? Side.CLIENT : Side.SERVER)
-        .addInventory(this, worldObj.inv.getInvId() + ":" + pos.vec.getCoord(0) + "," + pos.vec.getCoord(1));
+        .addInventory(this, worldObj.inv.getInvId() + ":" + pos.vec.getCoord(0).toInt() + "," + pos.vec.getCoord(1).toInt());
+        
+        if(savedinvs != null && !savedinvs.hasNoTags())
+        	mcinv.loadNBTData(savedinvs);
         
         super.validate();
     }
@@ -69,8 +74,10 @@ public class IEMachineryBag extends ItemEntity implements IInventory {
             }
         }
         
+        savedinvs = comp.getCompoundTag("InvTags");
+        
         if(mcinv != null)
-        	mcinv.loadNBTData(comp);
+        	mcinv.loadNBTData(savedinvs);
 	}
 	
 	@Override
@@ -96,7 +103,11 @@ public class IEMachineryBag extends ItemEntity implements IInventory {
         comp.setTag("Items", nbttaglist);
         
         if(mcinv != null)
-        	mcinv.saveNBTData(comp);
+        {
+        	savedinvs = new NBTTagCompound();
+        	mcinv.saveNBTData(savedinvs);
+        	comp.setTag("InvTags", savedinvs);
+        }
 	}
 	
 	@Override

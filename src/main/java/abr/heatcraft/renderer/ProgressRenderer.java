@@ -2,6 +2,7 @@ package abr.heatcraft.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+import sciapi.api.mc.inventory.pos.McInvDirection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -14,11 +15,14 @@ import net.minecraftforge.client.IItemRenderer;
 public class ProgressRenderer implements IItemRenderer {
     
 	private static RenderItem renderItem = new RenderItem();
-	private boolean bgbase;
+	private boolean bgbase, bgover;
 	private int startx, starty, xsize, ysize;
+	private McInvDirection progdir;
 	
-	public ProgressRenderer(boolean pbgbase, int sx, int sy, int x_size, int y_size){
+	public ProgressRenderer(boolean pbgbase, boolean pbgover, McInvDirection dir, int sx, int sy, int x_size, int y_size){
 		bgbase = pbgbase;
+		bgover = pbgover;
+		progdir = dir;
 		startx = sx;
 		starty = sy;
 		xsize = x_size;
@@ -45,18 +49,41 @@ public class ProgressRenderer implements IItemRenderer {
         	renderItem.renderIcon(0, 0, bgicon, 16, 16);
         	return;
         }
-        
-        int prog = item.getItemDamage() * ysize / item.getMaxDamage();
-        
+                
         int i = item.getItem().getColorFromItemStack(item, 0);
         float f5 = (float)(i >> 16 & 255) / 255.0F;
         float f4 = (float)(i >> 8 & 255) / 255.0F;
         float f6 = (float)(i & 255) / 255.0F;
         GL11.glColor4f(f5, f4, f6, 1.0F);
+                
+        if(!bgover)
+        	renderItem.renderIcon(0, 0, bgicon, 16, 16);
         
-        renderItem.renderIcon(0, 0, bgicon, 16, 16);
+        int prog;
         
-        this.renderPartIcon(renderItem, startx, starty, progicon, xsize, ysize, 0, prog, 0, 0);
+        if(progdir == McInvDirection.UP)
+        {
+        	prog = item.getItemDamage() * ysize / item.getMaxDamage();
+        	this.renderPartIcon(renderItem, startx, starty, progicon, xsize, ysize, 0, prog, 0, 0);
+        }
+        else if(progdir == McInvDirection.DOWN)
+        {
+        	prog = item.getItemDamage() * ysize / item.getMaxDamage();
+        	this.renderPartIcon(renderItem, startx, starty, progicon, xsize, ysize, 0, 0, 0, prog);
+        }
+        else if(progdir == McInvDirection.LEFT)
+        {
+        	prog = item.getItemDamage() * xsize / item.getMaxDamage();
+        	this.renderPartIcon(renderItem, startx, starty, progicon, xsize, ysize, prog, 0, 0, 0);
+        }
+        else
+        {
+        	prog = item.getItemDamage() * xsize / item.getMaxDamage();
+        	this.renderPartIcon(renderItem, startx, starty, progicon, xsize, ysize, 0, 0, prog, 0);
+        }
+        
+        if(bgover)
+        	renderItem.renderIcon(0, 0, bgicon, 16, 16);
 	}
 
 	private void renderPartIcon(RenderItem render, int x, int y, IIcon partIcon, int xsize, int ysize, int startx, int starty, int endx, int endy){

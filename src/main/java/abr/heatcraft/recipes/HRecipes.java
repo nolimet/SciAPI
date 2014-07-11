@@ -18,6 +18,15 @@ public class HRecipes {
 				"x", "y", "x",
 				'x', new ItemStack(Items.iron_ingot),
 				'y', new ItemStack(Items.redstone));
+		GameRegistry.addRecipe(new ItemStack(HItems.heatplate, 1),
+				"x", "z", "x",
+				'x', new ItemStack(Items.iron_ingot),
+				'z', new ItemStack(HItems.copper_ingot));
+		GameRegistry.addRecipe(new ItemStack(HItems.heatplate, 1),
+				"x", "z", "x",
+				'x', new ItemStack(HItems.lead_ingot),
+				'z', new ItemStack(HItems.copper_ingot));
+		
 		GameRegistry.addRecipe(new ItemStack(HBlocks.heatBlock),
 				"xxx", "xxx", "xxx",
 				'x', new ItemStack(HItems.heatplate));
@@ -42,6 +51,27 @@ public class HRecipes {
 				"xxx", "xyx", " x ",
 				'x', new ItemStack(HItems.heatplate),
 				'y', new ItemStack(Blocks.redstone_lamp));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.liqtank),
+				"yxy", "x x", "yxy",
+				'x', new ItemStack(HItems.heatplate),
+				'y', new ItemStack(Items.feather));
+		GameRegistry.addShapelessRecipe(new ItemStack(HItems.fluidprogress),
+				new ItemStack(HItems.liqtank), 
+				new ItemStack(HItems.box));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.casting),
+				"yxy", "x x", "y y",
+				'x', new ItemStack(HItems.heatplate),
+				'y', new ItemStack(Items.feather));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.bag),
+				"zyz", "yxy", "zyz",
+				'x', new ItemStack(HItems.box),
+				'y', new ItemStack(Items.leather),
+				'z', new ItemStack(HItems.heatplate));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.exbag),
+				"zyz", "yxy", "zyz",
+				'x', new ItemStack(HItems.bag),
+				'y', new ItemStack(Items.leather),
+				'z', new ItemStack(HItems.heatplate));
 		
 		Fluid reg;
 		
@@ -54,7 +84,32 @@ public class HRecipes {
 		reg = FluidRegistry.getFluid("lava");
 		FluidHeatRecipes.heating().addItemHeating(Item.getItemFromBlock(Blocks.stone),
 				new FluidStack(reg, 1000), 30000);
+		FluidHeatRecipes.heating().addItemHeating(Item.getItemFromBlock(Blocks.cobblestone),
+				new FluidStack(reg, 1000), 28000);
 		
+		reg = FluidRegistry.getFluid("liqcopper");
+		FluidHeatRecipes.heating().addOreHeating("oreCopper", new FluidStack(reg, 2000), 1000);
+		CastingRecipes.instance().addCasting(reg, new ItemStack(HItems.copper_ingot));
+
+		reg = FluidRegistry.getFluid("liqtin");
+		FluidHeatRecipes.heating().addOreHeating("oreTin", new FluidStack(reg, 2000), 1000);
+		CastingRecipes.instance().addCasting(reg, new ItemStack(HItems.tin_ingot));
 		
+		reg = FluidRegistry.getFluid("liqiron");
+		FluidHeatRecipes.heating().addOreHeating("oreIron", new FluidStack(reg, 2000), 1000);
+		CastingRecipes.instance().addCasting(reg, new ItemStack(Items.iron_ingot));
+		
+		reg = FluidRegistry.getFluid("liqgold");
+		FluidHeatRecipes.heating().addOreHeating("oreGold", new FluidStack(reg, 2000), 1000);
+		CastingRecipes.instance().addCasting(reg, new ItemStack(Items.gold_ingot));
+		
+		reg = FluidRegistry.getFluid("liqsilver");
+		FluidHeatRecipes.heating().addOreHeating("oreSilver", new FluidStack(reg, 2000), 1000);
+		CastingRecipes.instance().addCasting(reg, new ItemStack(HItems.silver_ingot));
+
+		reg = FluidRegistry.getFluid("liqlead");
+		FluidHeatRecipes.heating().addOreHeating("oreLead", new FluidStack(reg, 2000), 2000);
+		CastingRecipes.instance().addCasting(reg, new ItemStack(HItems.lead_ingot));
+
 	}
 }

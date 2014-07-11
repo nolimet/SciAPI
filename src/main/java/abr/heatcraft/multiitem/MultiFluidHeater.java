@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import abr.heatcraft.block.BlockHeatFurnace;
 import abr.heatcraft.enchant.EnchantmentExplComb;
 import abr.heatcraft.enchant.EnchantmentHeatProof;
@@ -37,7 +38,7 @@ public class MultiFluidHeater extends MultiItem {
 	
     private static final double stdfurTemp = 1000;
     private static final double minreactTemp = 450;
-    private static final double addedhrate = 0.3;
+    private static final double addedhrate = 0.6;
     private static final double maxreact = 30.0;
 
     private static final double hratetoj = 101412;
@@ -240,7 +241,7 @@ public class MultiFluidHeater extends MultiItem {
 		if(i == 2){
 			EVecInt vec = corepos.vec.getTemporary();
 				
-			vec.set(1, 1);
+			vec.set(2, 0);
 			ItemStack is = worldObj.getItemStack(corepos.getDiffPos(vec));
 				
 			vec.remove(vec);
@@ -268,7 +269,7 @@ public class MultiFluidHeater extends MultiItem {
 		if(i == 2){
 			EVecInt vec = corepos.vec.getTemporary();
 			
-			vec.set(1, 1);
+			vec.set(2, 0);
 			worldObj.setItemStack(corepos.getDiffPos(vec), stack);
 				
 			vec.remove(vec);
@@ -278,14 +279,14 @@ public class MultiFluidHeater extends MultiItem {
     
     /** Gets the current burning rate*/
     public double getBurnRate(){
-    	double r = 1.2 * (this.Temp - minreactTemp) / (stdfurTemp - minreactTemp);
+    	double r = 2.5 * (this.Temp - minreactTemp) / (stdfurTemp - minreactTemp);
     	return Math.max(Math.min(r, maxreact) + addedhrate, 0.0)
     			* EnchantmentExplComb.getEffect(fuelbar.explosivelvl);
     }
     
     /** Gets the possible cooking rate*/
     public double getCookRate(){
-    	double r = 1.2 * (this.Temp - minreactTemp) / (stdfurTemp - minreactTemp);
+    	double r = 2.5 * (this.Temp - minreactTemp) / (stdfurTemp - minreactTemp);
     	return Math.max(Math.min(r, maxreact) * (1 + addedhrate), 0.0)
     			* EnchantmentExplComb.getEffect(fuelbar.explosivelvl);
     }
@@ -367,7 +368,6 @@ public class MultiFluidHeater extends MultiItem {
                 if (this.cookHeat >= this.totalCookHeat)
                 {
                     this.cookHeat = 0;
-                    this.totalCookHeat = 0;
                     this.smeltItem();
                     flag1 = true;
                 }
@@ -399,11 +399,23 @@ public class MultiFluidHeater extends MultiItem {
         }
         else
         {
+        	ItemStack cur0 = this.getFurnaceItemStack(0);
         	ItemStack cur = this.getFurnaceItemStack(2);
-            FluidStack fluidstack = FluidHeatRecipes.heating().getHeatingResultF(cur);
+            FluidStack fluidstack = FluidHeatRecipes.heating().getHeatingResultF(cur0);
             if (fluidstack == null) return false;
-            if (!FluidContainerRegistry.isContainer(cur)) return false;
-            if (FluidContainerRegistry.isEmptyContainer(cur) || FluidContainerRegistry.containsFluid(cur, fluidstack)) return true;
+            if (cur == null) return false;
+            if (FluidContainerRegistry.isContainer(cur) && (FluidContainerRegistry.isEmptyContainer(cur) || FluidContainerRegistry.containsFluid(cur, fluidstack))) return true;
+            if (cur0.getItem() instanceof IFluidContainerItem && cur.getItem() instanceof IFluidContainerItem)
+            {
+            	FluidStack stack = ((IFluidContainerItem)cur0.getItem()).drain(cur0, 100, false);
+            	if(stack != null && stack.amount == 100)
+            		return true;
+            	return false;
+            }
+            else if(cur.getItem() instanceof IFluidContainerItem)
+            {
+            	return ((IFluidContainerItem)cur.getItem()).fill(cur0, fluidstack, false) != 0;
+            }
             return false;
         }
     }
@@ -422,13 +434,32 @@ public class MultiFluidHeater extends MultiItem {
             Item item;
         	
             ItemStack filled = FluidContainerRegistry.fillFluidContainer(copy, this.getFurnaceItemStack(2));
-
             if(filled != null)
             {
             	this.setFurnaceItemStack(2, filled);
             	istack = this.getFurnaceItemStack(0);
             	item = istack.getItem();
             	this.setFurnaceItemStack(0, item.getContainerItem(istack));
+            	return;
+            }
+            
+            if(this.getFurnaceItemStack(2).getItem() instanceof IFluidContainerItem)
+            {
+            	int filledam = ((IFluidContainerItem) this.getFurnaceItemStack(2).getItem())
+            			.fill(this.getFurnaceItemStack(2), copy, true);
+            	if(filledam > 0)
+            	{
+            		istack = this.getFurnaceItemStack(0);
+        			item = istack.getItem();
+            		if(item instanceof IFluidContainerItem)
+            			((IFluidContainerItem) item).drain(istack, 100, true);
+            		else
+            		{
+            			if(istack.stackSize == 1)
+            				this.setFurnaceItemStack(0, item.getContainerItem(istack));
+            			else istack.stackSize--;
+            		}
+            	}
             }
         }
     }

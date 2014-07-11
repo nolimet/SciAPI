@@ -292,7 +292,10 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
     	entityList.remove(ie);
     	this.ievalid[i] = false;
     	if(this.prevstacks[i] != null)
+    	{
+    		ie.writeToNBT(getIECompound(this.prevstacks[i]));
     		delInventory(this.prevstacks[i]);
+    	}
     	ie.invalidate();
     	
     	this.checkNeighbors(pos);
@@ -403,6 +406,7 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
     	for(int i = 0; i < inv.getSizeInventory(); i++){
     		st = this.getItemStack(i);
     		
+    		try{
     		if(hasItemEntity(st) && getInvId(st).equals(inv.getInvId())){
     			x = getX(st);
     			y = getY(st);
@@ -412,6 +416,10 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
     				moved.add(ie);
     				npos.add(i);
     			}
+    		}
+    		}catch(Exception e)
+    		{
+    			e.printStackTrace();
     		}
     	}
     	
@@ -454,7 +462,7 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
     	}
     	
     	if(inv.invchanged){
-    		int j;
+    		int j = 0;
     		for(int i = 0; i < inv.getSizeInventory(); i++){
     			ItemStack st = this.getItemStack(i);
     			ItemEntity ie;
@@ -480,8 +488,8 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
 				ie.writeToNBT(getIECompound(is));
 		}
 		
-		byte[] barr = MConverts.toByteArray(this.ievalid);
-		compound.setByteArray("ievalids", barr);
+		/*byte[] barr = MConverts.toByteArray(this.ievalid);
+		compound.setByteArray("ievalids", barr);*/
 	}
 
 	
@@ -495,10 +503,10 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
 				ie.readFromNBT(getIECompound(is));
 		}
 		
-		byte[] barr = compound.getByteArray("ievalids");
+		/*byte[] barr = compound.getByteArray("ievalids");
 		
 		for(byte i = 0; i < ievalid.length; i++)
-			ievalid[i] = MConverts.getBoolean(barr, i);
+			ievalid[i] = MConverts.getBoolean(barr, i);*/
 	}
 	
 

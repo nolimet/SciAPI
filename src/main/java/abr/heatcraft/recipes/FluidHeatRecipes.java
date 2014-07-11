@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class FluidHeatRecipes {
@@ -71,7 +72,7 @@ public class FluidHeatRecipes {
         }
         
         FluidHeatResult ret = (FluidHeatResult)heatingList.get(Item.getIdFromItem(item.getItem()));
-        if (ret != null) 
+        if (ret != null)
         {
             return ret;
         }
@@ -95,17 +96,30 @@ public class FluidHeatRecipes {
         	retf.amount *= fstack.amount;
         	return new FluidHeatResult(retf, (ret.cookheat * fstack.amount) / 1000);
         }
+        
+        if(item.getItem() instanceof IFluidContainerItem)
+        {
+        	FluidStack fstack = ((IFluidContainerItem)item.getItem()).getFluid(item);
+        	ret = heatingfluidList.get(fstack.getFluid().getUnlocalizedName());
+        	FluidStack retf = ret.fstack;
+        	retf.amount *= 100;
+        	return new FluidHeatResult(retf, (ret.cookheat));
+        }
 
         return null;
     }
     
     public FluidStack getHeatingResultF(ItemStack item)
     {
+    	if(getHeatingResult(item) == null)
+    		return null;
     	return getHeatingResult(item).fstack;
     }
     
     public int getHeatingTime(ItemStack item)
     {
+    	if(getHeatingResult(item) == null)
+    		return 0;
     	return getHeatingResult(item).cookheat;
     }
 }

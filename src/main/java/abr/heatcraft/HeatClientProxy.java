@@ -1,5 +1,6 @@
 package abr.heatcraft;
 
+import sciapi.api.mc.inventory.pos.McInvDirection;
 import sciapi.api.registry.McInvItemRegistry;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -18,9 +19,12 @@ public class HeatClientProxy extends HeatCommonProxy {
 		
 		McInvItemRegistry.registerInvManager(McBagInvManager.getInstance(Side.CLIENT), Side.CLIENT);
 		
-		MinecraftForgeClient.registerItemRenderer(HItems.cookprogress, new ProgressRenderer(true, 1, 1, 14, 14));
-		MinecraftForgeClient.registerItemRenderer(HItems.fuelprogress, new ProgressRenderer(true, 0, 0, 16, 16));
-		MinecraftForgeClient.registerItemRenderer(HItems.boxlava, new ProgressRenderer(false, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.cookprogress, new ProgressRenderer(true, false, McInvDirection.UP, 1, 1, 14, 14));
+		MinecraftForgeClient.registerItemRenderer(HItems.fuelprogress, new ProgressRenderer(true, false, McInvDirection.UP, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.fluidprogress, new ProgressRenderer(true, true, McInvDirection.RIGHT, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.boxlava, new ProgressRenderer(false, false, McInvDirection.UP, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.liqtank, new ProgressRenderer(true, true, McInvDirection.UP, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.casting, new ProgressRenderer(true, true, McInvDirection.UP, 0, 0, 16, 16));
 		
 		cauldronid = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(cauldronid, new CauldronRenderer());

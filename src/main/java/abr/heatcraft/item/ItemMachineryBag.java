@@ -17,16 +17,18 @@ import sciapi.api.mc.item.ItemEntity;
 public class ItemMachineryBag extends ItemContainer {
 
 	int ysize;
+	int num;
 	
-	public ItemMachineryBag(int ysize) {
+	public ItemMachineryBag(int ysize, int num) {
 		super();
 		this.ysize = ysize;
+		this.num = num;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerIcons(IIconRegister ir){
-        this.itemIcon = ir.registerIcon("heatcraft:machinerybag");
+        this.itemIcon = ir.registerIcon("heatcraft:machinerybag" + num);
 	}
 
 	@Override
