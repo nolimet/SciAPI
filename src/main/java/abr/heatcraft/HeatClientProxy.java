@@ -11,6 +11,7 @@ import abr.heatcraft.renderer.CauldronRenderer;
 import abr.heatcraft.renderer.ProgressRenderer;
 import abr.heatcraft.tile.TileHeatCauldron;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 public class HeatClientProxy extends HeatCommonProxy {
 	
@@ -28,5 +29,7 @@ public class HeatClientProxy extends HeatCommonProxy {
 		
 		cauldronid = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(cauldronid, new CauldronRenderer());
+		
+		MinecraftForge.EVENT_BUS.register(new HeatEventHandler());
 	}
 }

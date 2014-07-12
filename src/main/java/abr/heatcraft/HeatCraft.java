@@ -26,7 +26,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="heatcraft", name="InvWorks", version="0.1.0", dependencies = "required-after:sciapi@[0.3.0,)")
+@Mod(modid="heatcraft", name="InvWorks", version="0.1.0", dependencies = "required-after:sciapi@[0.4.0,)")
 public class HeatCraft {
 	
 	@Instance(value = "heatcraft")
@@ -47,8 +47,6 @@ public class HeatCraft {
 		HItems.Init();
 		HRecipes.Init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HeatGUIHandler());
-		
-		MinecraftForge.EVENT_BUS.register(new HeatEventHandler());
 		
 		cfg.save();
 	}

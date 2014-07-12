@@ -12,7 +12,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="sciapi", name="SciAPI", version="0.3.0")
+@Mod(modid="sciapi", name="SciAPI", version="0.4.0")
 public class SciAPI {
 	@Instance(value = "sciapi")
 	public static SciAPI instance;
@@ -31,7 +31,6 @@ public class SciAPI {
     @EventHandler
     public void load(FMLInitializationEvent event) {
     	proxy.onLoad();
-//    	MinecraftForge.EVENT_BUS.register(new TutEventHandler());
     }
     
     @EventHandler

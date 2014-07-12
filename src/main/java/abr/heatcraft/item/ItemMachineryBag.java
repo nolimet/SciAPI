@@ -24,12 +24,6 @@ public class ItemMachineryBag extends ItemContainer {
 		this.ysize = ysize;
 		this.num = num;
 	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IIconRegister ir){
-        this.itemIcon = ir.registerIcon("heatcraft:machinerybag" + num);
-	}
 
 	@Override
 	public ItemEntity createNewItemEntity(McInvWorld world) {
