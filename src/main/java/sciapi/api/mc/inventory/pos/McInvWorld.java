@@ -407,7 +407,7 @@ public class McInvWorld implements IDiscreteWorld<McInvPos, EVecInt> {
     		st = this.getItemStack(i);
     		
     		try{
-    		if(hasItemEntity(st) && getInvId(st).equals(inv.getInvId())){
+    		if(itemValid(st) && st.hasTagCompound() && getInvId(st).equals(inv.getInvId()) && hasItemEntity(st)){
     			x = getX(st);
     			y = getY(st);
     			j = toEntry(x, y);

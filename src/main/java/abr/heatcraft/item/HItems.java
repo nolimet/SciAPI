@@ -3,17 +3,23 @@ package abr.heatcraft.item;
 import abr.heatcraft.api.enchant.ThermalEnchantableRegistry;
 import abr.heatcraft.itementity.IEBoxLava;
 import abr.heatcraft.itementity.IECasting;
+import abr.heatcraft.itementity.IEFluidDrain;
+import abr.heatcraft.itementity.IEFluidFiller;
+import abr.heatcraft.itementity.IEFluidMover;
 import abr.heatcraft.itementity.IEFluidProgress;
 import abr.heatcraft.itementity.IEFuelProgress;
 import abr.heatcraft.itementity.IEHeatPlate;
 import abr.heatcraft.itementity.IECookProgress;
+import abr.heatcraft.itementity.IEItemMover;
 import abr.heatcraft.itementity.IELiquidTank;
 import abr.heatcraft.itementity.IEMachineryBag;
 import sciapi.api.mc.item.ItemContainer;
 import sciapi.api.registry.McInvItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -28,6 +34,10 @@ public class HItems {
 	public static Item exbag;
 	public static Item liqtank;
 	public static Item casting;
+	public static Item filler;
+	public static Item drain;
+	public static Item fluidmover;
+	public static Item itemmover;
 	
 	public static Item copper_ingot, tin_ingot, silver_ingot, lead_ingot;
 	
@@ -74,6 +84,22 @@ public class HItems {
 				.setCreativeTab(CreativeTabs.tabDecorations)
 				.setUnlocalizedName("itemcasting");
 		
+		filler = new ItemFluidFiller().setMaxStackSize(1)
+				.setCreativeTab(CreativeTabs.tabDecorations)
+				.setUnlocalizedName("fluidfiller");
+		
+		drain = new ItemFluidDrain().setMaxStackSize(1)
+				.setCreativeTab(CreativeTabs.tabDecorations)
+				.setUnlocalizedName("fluiddrain");
+		
+		fluidmover = new ItemFluidMover().setMaxStackSize(1)
+				.setCreativeTab(CreativeTabs.tabDecorations)
+				.setUnlocalizedName("fluidmover");
+		
+		itemmover = new ItemMover().setMaxStackSize(1)
+				.setCreativeTab(CreativeTabs.tabDecorations)
+				.setUnlocalizedName("itemmover");
+		
 		copper_ingot = new Item().setMaxStackSize(64).setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureName("heatcraft:copper").setUnlocalizedName("copper");
 		tin_ingot = new Item().setMaxStackSize(64).setCreativeTab(CreativeTabs.tabMaterials)
@@ -94,7 +120,11 @@ public class HItems {
 		GameRegistry.registerItem(exbag, exbag.getUnlocalizedName());
 		GameRegistry.registerItem(liqtank, liqtank.getUnlocalizedName());
 		GameRegistry.registerItem(casting, casting.getUnlocalizedName());
-		
+		GameRegistry.registerItem(filler, filler.getUnlocalizedName());
+		GameRegistry.registerItem(drain, drain.getUnlocalizedName());
+		GameRegistry.registerItem(itemmover, itemmover.getUnlocalizedName());
+		GameRegistry.registerItem(fluidmover, fluidmover.getUnlocalizedName());
+
 		GameRegistry.registerItem(copper_ingot, copper_ingot.getUnlocalizedName());
 		GameRegistry.registerItem(tin_ingot, tin_ingot.getUnlocalizedName());
 		GameRegistry.registerItem(silver_ingot, silver_ingot.getUnlocalizedName());
@@ -105,6 +135,7 @@ public class HItems {
 		OreDictionary.registerOre("ingotTin", tin_ingot);
 		OreDictionary.registerOre("ingotSilver", silver_ingot);
 
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid("lava"), new ItemStack(boxlava), new ItemStack(box));
 		
 		McInvItemRegistry.registerItemEntity(IECookProgress.class, "cookprogressbar");
 		McInvItemRegistry.registerItemEntity(IEFuelProgress.class, "fuelprogressbar");
@@ -115,7 +146,11 @@ public class HItems {
 		McInvItemRegistry.registerItemEntity(IEMachineryBag.class, "expandedmachinerybag");
 		McInvItemRegistry.registerItemEntity(IELiquidTank.class, "itemtank");
 		McInvItemRegistry.registerItemEntity(IECasting.class, "casting");
-		
+		McInvItemRegistry.registerItemEntity(IEFluidFiller.class, "fluidfiller");
+		McInvItemRegistry.registerItemEntity(IEFluidDrain.class, "fluiddrain");
+		McInvItemRegistry.registerItemEntity(IEFluidMover.class, "fluidmover");
+		McInvItemRegistry.registerItemEntity(IEItemMover.class, "itemmover");		
+
 		ThermalEnchantableRegistry.registerItemHeatEnchantable(cookprogress);
 		ThermalEnchantableRegistry.registerItemHeatEnchantable(fuelprogress);
 		ThermalEnchantableRegistry.registerItemHeatEnchantable(fluidprogress);

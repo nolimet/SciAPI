@@ -1,6 +1,7 @@
 ﻿
 item.cookprogressbar.name=연소 진행바
 item.fuelprogressbar.name=연료 소모바
+item.fluidprogressbar.name=액체 가열 진행바
 item.heatplate.name=열전도판
 item.box.name=빈 용암 상자
 item.boxlava.name=용암 상자
@@ -8,6 +9,10 @@ item.machinerybag.name=기계 가방
 item.expandedmachinerybag.name=확장된 기계 가방
 item.itemtank.name=탱크(아이템)
 item.itemcasting.name=거푸집(아이템)
+item.fluidfiller.name=액체 주입기
+item.fluiddrain.name=액체 추출기
+item.fluidmover.name=액체 운송기
+item.itemmover.name=아이템 운송기
 item.copper.name=구리 주괴
 item.tin.name=주석 주괴
 item.silver.name=은 주괴

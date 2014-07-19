@@ -21,6 +21,12 @@ public class ItemBoxLava extends ItemContainer {
 		this.setMaxDamage(FluidContainerRegistry.BUCKET_VOLUME);
 		this.setContainerItem(HItems.box);
 	}
+	
+	@Override
+	public ItemStack getContainerItem(ItemStack item)
+	{
+		return new ItemStack(HItems.box);
+	}
 
 	@Override
 	public ItemEntity createNewItemEntity(McInvWorld world) {

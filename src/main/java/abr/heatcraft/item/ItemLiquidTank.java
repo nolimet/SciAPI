@@ -60,8 +60,15 @@ public class ItemLiquidTank extends ItemContainer implements IFluidContainerItem
     		FluidStack f = getFluid(item);
     		if(f == null || f.amount == 0)
     			return this.progIcon;
-    		return f.getFluid().getIcon();
+    		return f.getFluid().getIcon(f);
     	}
+    }
+    
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getSpriteNumber()
+    {
+    	return 0;
     }
 	
 	@Override

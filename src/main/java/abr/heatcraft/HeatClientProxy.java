@@ -26,6 +26,10 @@ public class HeatClientProxy extends HeatCommonProxy {
 		MinecraftForgeClient.registerItemRenderer(HItems.boxlava, new ProgressRenderer(false, false, McInvDirection.UP, 0, 0, 16, 16));
 		MinecraftForgeClient.registerItemRenderer(HItems.liqtank, new ProgressRenderer(true, true, McInvDirection.UP, 0, 0, 16, 16));
 		MinecraftForgeClient.registerItemRenderer(HItems.casting, new ProgressRenderer(true, true, McInvDirection.UP, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.filler, new ProgressRenderer(true, true, McInvDirection.RIGHT, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.drain, new ProgressRenderer(true, true, McInvDirection.RIGHT, 0, 0, 16, 16));
+		MinecraftForgeClient.registerItemRenderer(HItems.itemmover, new ProgressRenderer(true, true, McInvDirection.RIGHT, 0, 0, 16, 16));
+
 		
 		cauldronid = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(cauldronid, new CauldronRenderer());
