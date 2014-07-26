@@ -26,7 +26,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="heatcraft", name="InvWorks", version="0.1.0", dependencies = "required-after:sciapi@[0.4.0,)")
+@Mod(modid="heatcraft", name="InvWorks", version="0.2.1", dependencies = "required-after:sciapi@[0.4.0,)")
 public class HeatCraft {
 	
 	@Instance(value = "heatcraft")

@@ -46,6 +46,9 @@ public class ProgressRenderer implements IItemRenderer {
 		
 		Minecraft.getMinecraft().renderEngine.bindTexture(item.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
 		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
         IIcon bgicon = item.getItem().getIcon(item, 0);
         IIcon progicon = item.getItem().getIcon(item, 1);
 
@@ -88,6 +91,9 @@ public class ProgressRenderer implements IItemRenderer {
         
         if(bgover)
         	renderItem.renderIcon(0, 0, bgicon, 16, 16);
+        
+		GL11.glDisable(GL11.GL_BLEND);
+     
 	}
 
 	private void renderPartIcon(RenderItem render, int x, int y, IIcon partIcon, int xsize, int ysize, int startx, int starty, int endx, int endy){

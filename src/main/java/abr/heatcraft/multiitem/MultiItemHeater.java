@@ -260,11 +260,20 @@ public class MultiItemHeater extends MultiItem {
 			
 			vec.set(1, 1);
 			worldObj.setItemStack(corepos.getDiffPos(vec), stack);
-				
+			
 			vec.remove(vec);
 		}
 	}
 	
+	public boolean resultValid()
+	{
+		EVecInt vec = corepos.vec.getTemporary();
+		
+		vec.set(1, 1);
+		if(worldObj.toEntry(corepos.getDiffPos(vec).vec) >= worldObj.inv.getSizeInventory())
+			return false;
+		return true;
+	}
     
     /** Gets the current burning rate*/
     public double getBurnRate(){
@@ -388,7 +397,12 @@ public class MultiItemHeater extends MultiItem {
         {
             ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.getFurnaceItemStack(0));
             if (itemstack == null) return false;
-            if (this.getFurnaceItemStack(2) == null) return true;
+            if (this.getFurnaceItemStack(2) == null)
+            {
+            	if(!resultValid())
+            		return false;
+            	return true;
+            }
             if (!this.getFurnaceItemStack(2).isItemEqual(itemstack)) return false;
             int result = getFurnaceItemStack(2).stackSize + itemstack.stackSize;
             return (result <= 64 && result <= itemstack.getMaxStackSize());

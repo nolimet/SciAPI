@@ -64,6 +64,10 @@ public abstract class McInventory implements IInventory {
 	public abstract boolean equals(Object o);
 
 
+	public boolean rangeCheck(int i)
+	{
+		return (i >= 0 && i < inventory.getSizeInventory());
+	}
 	
 	@Override
 	public int getSizeInventory() {
@@ -72,22 +76,30 @@ public abstract class McInventory implements IInventory {
 
 	@Override
 	public ItemStack getStackInSlot(int i) {
+		if(!rangeCheck(i))
+			return null;
 		return inventory.getStackInSlot(toREntry(i));
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
+		if(!rangeCheck(i))
+			return null;
 		this.onInventorySync(i);
 		return inventory.decrStackSize(this.toREntry(i), j);
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
+		if(!rangeCheck(i))
+			return null;
 		return inventory.getStackInSlotOnClosing(this.toREntry(i));
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		if(!rangeCheck(i))
+			return;
 		this.onInventorySync(i);
 		inventory.setInventorySlotContents(this.toREntry(i), itemstack);
 	}
@@ -124,6 +136,8 @@ public abstract class McInventory implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		if(!rangeCheck(i))
+			return false;
 		return inventory.isItemValidForSlot(this.toREntry(i), itemstack);
 	}
 }

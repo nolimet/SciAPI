@@ -12,7 +12,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="sciapi", name="SciAPI", version="0.4.0")
+@Mod(modid="sciapi", name="SciAPI", version="0.4.1")
 public class SciAPI {
 	@Instance(value = "sciapi")
 	public static SciAPI instance;
