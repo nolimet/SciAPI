@@ -72,6 +72,27 @@ public class HRecipes {
 				'x', new ItemStack(HItems.bag),
 				'y', new ItemStack(Items.leather),
 				'z', new ItemStack(HItems.heatplate));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.filler),
+				" h ", "yxy", " z ",
+				'x', new ItemStack(HItems.liqtank),
+				'y', new ItemStack(Items.feather),
+				'z', new ItemStack(HItems.heatplate),
+				'h', new ItemStack(Blocks.hopper));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.drain),
+				" z ", "yxy", " h ",
+				'x', new ItemStack(HItems.liqtank),
+				'y', new ItemStack(Items.feather),
+				'z', new ItemStack(HItems.heatplate),
+				'h', new ItemStack(Blocks.hopper));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.fluidmover),
+				" z ", "yxy", " z ",
+				'x', new ItemStack(HItems.liqtank),
+				'y', new ItemStack(Items.feather),
+				'z', new ItemStack(HItems.heatplate));
+		GameRegistry.addShapedRecipe(new ItemStack(HItems.itemmover),
+				"zzz", "y y", "zzz",
+				'y', new ItemStack(Items.feather),
+				'z', new ItemStack(HItems.heatplate));
 		
 		Fluid reg;
 		
