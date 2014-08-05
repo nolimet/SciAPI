@@ -149,7 +149,7 @@ public class HItems {
 		McInvItemRegistry.registerItemEntity(IEFluidFiller.class, "fluidfiller");
 		McInvItemRegistry.registerItemEntity(IEFluidDrain.class, "fluiddrain");
 		McInvItemRegistry.registerItemEntity(IEFluidMover.class, "fluidmover");
-		McInvItemRegistry.registerItemEntity(IEItemMover.class, "itemmover");		
+		McInvItemRegistry.registerItemEntity(IEItemMover.class, "itemmover");
 
 		ThermalEnchantableRegistry.registerItemHeatEnchantable(cookprogress);
 		ThermalEnchantableRegistry.registerItemHeatEnchantable(fuelprogress);

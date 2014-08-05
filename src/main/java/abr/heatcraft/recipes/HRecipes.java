@@ -11,21 +11,22 @@ import net.minecraftforge.fluids.FluidStack;
 import abr.heatcraft.block.HBlocks;
 import abr.heatcraft.item.HItems;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class HRecipes {
 	public static void Init(){
-		GameRegistry.addRecipe(new ItemStack(HItems.heatplate, 1),
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HItems.heatplate, 1),
 				"x", "y", "x",
-				'x', new ItemStack(Items.iron_ingot),
-				'y', new ItemStack(Items.redstone));
+				'x', "ingotIron",
+				'y', "dustRedstone"));
 		GameRegistry.addRecipe(new ItemStack(HItems.heatplate, 1),
 				"x", "z", "x",
-				'x', new ItemStack(Items.iron_ingot),
-				'z', new ItemStack(HItems.copper_ingot));
+				'x', "ingotIron",
+				'z', "ingotCopper");
 		GameRegistry.addRecipe(new ItemStack(HItems.heatplate, 1),
 				"x", "z", "x",
-				'x', new ItemStack(HItems.lead_ingot),
-				'z', new ItemStack(HItems.copper_ingot));
+				'x', "ingotLead",
+				'z', "ingotCopper");
 		
 		GameRegistry.addRecipe(new ItemStack(HBlocks.heatBlock),
 				"xxx", "xxx", "xxx",
