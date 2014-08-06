@@ -1,14 +1,15 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "heatcraft",
+  "name": "InvWorks",
+  "description": "InvWorks is a mod which adds Some 'Inventory Machines' as Item & Multi-Item.
+Also, it uses Heat System as energy system (replacement for electricity).",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2104608",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Abastro"],
+  "credits": " ",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
